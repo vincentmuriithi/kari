@@ -73,7 +73,7 @@ void callback1(){
 
 void callback2(){
     Serial.println("Distance is above 50");
-}
+}```
 
 ## 🛠 API Reference
 

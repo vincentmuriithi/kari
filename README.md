@@ -14,7 +14,7 @@
 To install the **Kari Library**:
 
 1. **Download from GitHub**
-   - Go to the [Kari GitHub Repository](https://github.com/yourusername/kari) or [Kari Website](https://kari.netlify.app).
+   - Go to the [Kari GitHub Repository](https://github.com/vincentmuriithi/kari) or [Kari Website](https://kari.netlify.app).
    - Download the `.zip` file of the latest release.
 
 2. **Manual Installation**

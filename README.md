@@ -26,6 +26,30 @@ To install the **Kari Library**:
 
 ---
 
+## 🛠 API Reference
+
+### 📍 KariUltrasonic
+- `kariUltrasonic(int trigPin, int echoPin);`
+- `float measure();`
+- `static void measureMulti();`
+- `int onMeasure(float lowerBound, float upperBound, void (*callback)(), bool triggerOnUpperBound=false);`
+- `void attach();`
+
+### 🔥 **KariPIR**
+- `kariPIR(int signalPin);`
+- `void onMeasure(void (*callback)(), void (*fallbackCallback)() = nullptr);`
+
+### 🌟 **KariInfrared**
+- `kariInfrared(int signalPin);`
+- `void onMeasure(void (*callback)());`
+### ⚡ KariAsync
+- `static void execute(void (*callback)(), unsigned int delay);`  
+  *Use this function inside the `loop()` to run asynchronous tasks.*
+
+### 🔁 KariPulse & KariSequential
+- `void kariPulse(Pins array);`
+- `void kariSequential(Pins array);`
+
 ## 🔨 Usage
 
 ### 1️⃣ **Basic Example: Measuring Distance with KariUltrasonic**
@@ -76,29 +100,30 @@ void callback2(){
 } 
 ```
 
-## 🛠 API Reference
+### 2️⃣ **Basic Example: Use case of kariPIR**
+```cpp
+#include <kari.h>
+using namespace kari;
 
-### 📍 KariUltrasonic
-- `kariUltrasonic(int trigPin, int echoPin);`
-- `float measure();`
-- `static void measureMulti();`
-- `int onMeasure(float lowerBound, float upperBound, void (*callback)(), bool triggerOnUpperBound=false);`
-- `void attach();`
+kariPIR *pir;
+void setup(){
+    kariBegin({7});
+    pir = new kariPIR(8);
+}
 
-### 🔥 **KariPIR**
-- `kariPIR(int signalPin);`
-- `void onMeasure(void (*callback)(), void (*fallbackCallback)() = nullptr);`
 
-### 🌟 **KariInfrared**
-- `kariInfrared(int signalPin);`
-- `void onMeasure(void (*callback)());`
-### ⚡ KariAsync
-- `static void execute(void (*callback)(), unsigned int delay);`  
-  *Use this function inside the `loop()` to run asynchronous tasks.*
+void loop(){
+    kariAsync::execute(
+        [](){
+            pir->onMeasure(
+                [](){ digitalWrite(7, HIGH); },
+                [](){ digitalWrite(7, LOW); }
+            );
 
-### 🔁 KariPulse & KariSequential
-- `void kariPulse(Pins array);`
-- `void kariSequential(Pins array);`
+        },10
+    );
+} ```
+
 ## 📜 License
 This library is licensed under the Apache License 2.0.
 See the full license here: [Apache-2.0 License.](https://opensource.org/licenses/Apache-2.0)

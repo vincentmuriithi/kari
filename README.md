@@ -59,5 +59,5 @@ GitHub: [vincentmuriithi](https://github.com/vincentmuriithi)
 Email: vincentmuriithi06@gmail.com 
 
 ## 🌐 Website
-For more information about **Kari** and updates, visit  
+For more information about **Kari** and updates, visit:  
 [Kari Website](https://kari_IOT.netlify.app)

@@ -125,6 +125,49 @@ void loop(){
 } 
 ```
 
+### 3️⃣ **Basic Example: Use case of kariPulse**
+```cpp
+#include <kari.h>
+using namespace kari;
+
+
+void setup(){
+    kariBegin({7,4,2});
+}
+
+void loop(){
+    kariAsync::execute(
+        [](){
+            kariPulse({ {7, 4, 2}, "pulse1"});
+        },
+        1000
+    );
+
+}
+```
+
+### 4️⃣ **Basic Example: Use case of kariSequential**
+```cpp
+#include <kari.h>
+using namespace kari;
+
+
+void setup(){
+    Serial.begin(9600);
+    kariBegin({8, 7, 6, 5});
+}
+
+void loop(){
+    kariAsync::execute(
+        [](){
+            kariSequential({ {8, 7, 6, 5}, "sequential1"});
+        },
+        1500
+    );
+   
+}
+```
+
 ## 📜 License
 This library is licensed under the Apache License 2.0.
 See the full license here: [Apache-2.0 License.](https://opensource.org/licenses/Apache-2.0)

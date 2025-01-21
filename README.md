@@ -5,9 +5,9 @@
 **Kari** is a lightweight and efficient Arduino library designed for asynchronous execution, sensor-based applications, and efficient pin control. It simplifies the integration of various sensors (like ultrasonic, PIR, and infrared) and supports asynchronous task management to improve performance.
 
 ## 📌 Features
-- 📡 **Asynchronous Execution** – Non-blocking tasks in the `loop()` function.
+- ⚡ **Asynchronous Execution** – Non-blocking tasks in the `loop()` function.
 - 🔧 **Sensor Support** – Includes helper functions for PIR, ultrasonic, and infrared sensors.
-- ⚡ **Pulse and Sequential Execution** – Manage digital pin pulses and sequences easily.
+- 🔁 **Pulse and Sequential Execution** – Manage digital pin pulses and sequences easily.
 - 🚀 **Optimized for AVR & Non-AVR Boards** – Compatible with a wide range of Arduino-compatible boards.
 
 ## 📥 Installation
@@ -28,18 +28,18 @@ To install the **Kari Library**:
 
 ## 🛠 API Reference
 
-### 📍 KariUltrasonic
+### 🧭 KariUltrasonic
 - `kariUltrasonic(int trigPin, int echoPin);`
 - `float measure();`
 - `static void measureMulti();`
 - `int onMeasure(float lowerBound, float upperBound, void (*callback)(), bool triggerOnUpperBound=false);`
 - `void attach();`
 
-### 🔥 **KariPIR**
+### 📡 **KariPIR**
 - `kariPIR(int signalPin);`
 - `void onMeasure(void (*callback)(), void (*fallbackCallback)() = nullptr);`
 
-### 🌟 **KariInfrared**
+### 📡 **KariInfrared**
 - `kariInfrared(int signalPin);`
 - `void onMeasure(void (*callback)());`
 ### ⚡ KariAsync
@@ -125,7 +125,78 @@ void loop(){
 } 
 ```
 
-### 3️⃣ **Basic Example: Use case of kariPulse**
+### 3️⃣ **Basic Example: Use case of kariInfrared**
+```cpp
+#include <kari.h>
+
+using namespace kari;
+
+int pin = 5;
+kariInfrared *irSensor;
+
+void onDetection() {
+    Serial.println("Infrared signal detected!");
+}
+
+void setup() {
+    Serial.begin(9600);
+    kariBegin({pin});
+    irSensor = new kariInfrared(pin); // Initialize infrared sensor on pin 5
+}
+
+void loop() {
+    kariAsync::execute(
+    [] () {
+        irSensor->onMeasure(onDetection); // Check for infrared signal continuously
+    },
+    100
+    );
+}
+```
+
+### 4️⃣ **Basic Example: Use case of kariAsync**
+```cpp    
+#include <kari.h>
+using namespace kari;
+
+void printToScreen();
+
+void setup(){
+    Serial.begin(9600);
+    kariBegin({9, 8, 7, 6, 5, 4, 3, 2});
+}
+
+void loop(){
+    kariAsync::execute(
+        [](){
+            kariSequential({ {9, 8, 7, 6}, "sequential1"});
+        },
+        1500
+    );
+
+    kariAsync::execute(
+        [](){
+            kariPulse({ {5, 4, 3, 2}, "pulse1"});
+        },
+        500
+    );
+
+    kariAsync::execute(
+        [](){
+           Serial.println("Task executed after every 3 seconds"); 
+        },
+        3000
+    );
+    kariAsync::execute(printToScreen, 2500);
+   
+}
+
+void printToScreen(){
+	Serial.println("This is executed after each 2.5 seconds");
+}
+```
+
+### 5️⃣ **Basic Example: Use case of kariPulse**
 ```cpp
 #include <kari.h>
 using namespace kari;
@@ -146,7 +217,7 @@ void loop(){
 }
 ```
 
-### 4️⃣ **Basic Example: Use case of kariSequential**
+### 6️⃣ **Basic Example: Use case of kariSequential**
 ```cpp
 #include <kari.h>
 using namespace kari;

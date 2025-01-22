@@ -250,4 +250,4 @@ Email: vincentmuriithi06@gmail.com
 
 ## 🌐 Website
 For more information about **Kari** and updates, visit:  
-[Kari Website](https://kari_IOT.netlify.app)
+[Kari Website](https://kariiot.netlify.app)

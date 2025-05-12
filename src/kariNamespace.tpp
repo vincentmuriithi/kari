@@ -20,7 +20,6 @@
  * License: Apache License 2.0
  */
 
-
 #include "kari.h"
 
 namespace kari{
@@ -71,6 +70,13 @@ Node* createNode(Node *node, T &data){
         return node;
 
 }
+
+template<typename T>
+kariStream& kariStream::operator<<(const T& value){
+    Serial.print(value);
+    return *this;
+}
+
 
 
 

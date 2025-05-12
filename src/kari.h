@@ -20,31 +20,38 @@
  * License: Apache License 2.0
  */
 
-
 #ifndef KARI_H
 #define KARI_H
+
+// kari cells definitions go here 
+#define __KARI_CELLS__
+#define __KARI_SERIAL_BT__
+
+
 
 #if !defined(__AVR__)
 #include <type_traits>
 #endif
 
 #include <Arduino.h>
-//#include <vector.h>
-
 #if defined(__AVR__)
-#include "vector.h"
+#include "./avr_deps/vector.h"
 #else
 #include <vector>
 #endif
 
-
 namespace kari{
 
+class kariStream;
+extern kariStream out;
+    
 struct Node{
     int data;
     Node *next;
 };
 
+struct EndlType{};
+constexpr EndlType endl;
 
 #if !defined(__AVR__)
 
@@ -98,6 +105,7 @@ struct Pins{
     std::vector<int> pins;
     const char *name;
 };
+
 
 template<typename T>
 Node* createNode(Node *node, T &data);
@@ -159,6 +167,34 @@ public:
 
 };
 
+class kariPID{
+private:
+    const float kp;
+    const float ki;
+    const float kd;
+    const float setPoint;
+    float error = 0.00f;
+    float prevError = 0.00f;
+    float integral = 0.00f;
+    float derivative = 0.00f;
+    long int previousTime = 0;
+    long int currentTime = 0;
+public:
+    kariPID(const float setPoint, const float kp=0.00f, const float ki=0.00f, const float kd=0.00f);
+    float evaluate(float feedBack);
+
+};
+
+class kariStream{
+public:
+    template<typename T>
+    kariStream& operator<<(const T& value);
+    kariStream& operator<<(const EndlType&);
+
+};
+
+
+
 }
 
 
@@ -209,12 +245,34 @@ public:
 class kariInfrared{
 int signal;
 public:
-    kariInfrared(int &signal);
+    kariInfrared(int signal);
     void onMeasure(void(*callback)());
     template<typename T, typename U>
     friend U kari::getProperty(T &accessClass, U T::*property);
     template<typename T, typename U>
     friend U kari::getProperty(T *accessClass, U T::*property);
+};
+
+class kariDrive{
+    private:
+    const int motor1_EN;
+    const int motor1_InA;
+    const int motor1_InB;
+
+    const int motor2_EN;
+    const int motor2_InA;
+    const int motor2_InB;
+
+    void accelerate(int speed);
+    void changeover(bool value);
+    void differentiate(int speedDifference, bool direction);
+
+    public:
+        kariDrive(const int motor1_EN, const int motor1_InA, const int motor1_InB, int motor2_EN, const int motor2_InA, const int motor2_InB);
+        void drive(int speed = 100, bool directionStatus = 0);
+        void right(int speed = 30, bool directionStatus = 0);
+        void left(int speed = 30, bool directionStatus = 0);
+
 };
 
 #include "kariNamespace.tpp"

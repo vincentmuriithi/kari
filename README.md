@@ -50,6 +50,22 @@ To install the **Kari Library**:
 - `void kariPulse(Pins array);`
 - `void kariSequential(Pins array);`
 
+### :dart: kariPID
+- `kariPID(const float setPoint, const float kp=0.00f, const float ki=0.00f, const float kd=0.00f);`
+- `float evaluate(float feedBack);`
+
+### :car: kariDrive
+- `kariDrive(const int motor1_EN, const int motor1_InA, const int motor1_InB, int motor2_EN, const int motor2_InA, const int motor2_InB);`
+- `void drive(int speed = 100, bool directionStatus = 0);`
+- `void right(int speed = 30, bool directionStatus = 0);`
+- `void left(int speed = 30, bool directionStatus = 0);`
+
+### :signal_strength: kariSerialBlueTooth
+- `kariSerialBluetooth(T kariBT, String name = "kariBT");`
+- `void isConnected(void(*callback)());`
+- `void isDisconnected(void(*callback)());
+- `void begin();`
+
 ## 🔨 Usage
 
 ### 1️⃣ **Basic Example: Measuring Distance with KariUltrasonic**
@@ -239,6 +255,184 @@ void loop(){
 }
 ```
 
+### 7️⃣ **Basic Example: Use case of kariPID**
+```cpp
+#include <kari.h>
+using namespace kari;
+
+float correction = 0.00f;
+float feedback = 50;
+int k = 0;
+
+kariPID pid(100, 0.5, 0.0001, 80);
+
+void setup(){
+    Serial.begin(9600);
+}
+
+void loop(){
+    kariAsync::execute(
+        [](){ 
+            // in this example we are simulating possible real world system to show kariPID potential
+            float correction = pid.evaluate(feedback);
+            feedback += correction * 0.5f; 
+            out << "Step" + String(k) + "- Correction: " + String(correction) + ", Feedback: " + String(feedback) << endl;
+            k++;
+        },
+        100
+    );
+
+}
+```
+
+### 8️⃣ **Basic Example: Use case of kariDrive**
+```cpp
+#include <kari.h>
+#include <ESP32Servo.h>
+using namespace kari;
+
+#define TRIG 21
+#define ECHO 22
+#define DIST 50
+
+void checker();
+void resetServo();
+
+
+kariDrive *car;
+kariUltrasonic *ultrasonic;
+Servo servo;
+unsigned int angle = 0;
+int dir = 1;
+bool isTurning = false;
+
+void setup(){
+  kariBegin({2, 4, 16, 17, 18, 19, 21, 22, 27});
+  car = new kariDrive(2, 4, 16, 17, 18, 19);
+  servo.attach(27);
+  ultrasonic = new kariUltrasonic(TRIG, ECHO);
+  servo.write(90);
+}
+
+void loop(){
+  kariAsync::execute(
+    [](){
+
+      float distance = ultrasonic->measure();
+      ultrasonic->onMeasure(DIST, DIST, checker);
+
+      if ( distance > DIST && !isTurning){
+        int degree = servo.read();
+        if ( degree > 92){
+          isTurning = true;
+          car->right(90);
+          car->left(200);
+        }
+        else if (degree >= 88 && degree <= 92)
+          car->drive(230);
+        else if (degree < 88) {
+          isTurning = true;
+          car->left(200);
+          car->right(90);
+        }
+      }
+    },
+    100
+  );
+
+  kariAsync::execute(resetServo, 2000);
+
+}
+
+void checker(){
+
+  if (angle >= 180 )
+    dir = -1;
+
+  if (angle <= 0 )
+  dir = 1;
+
+  angle += 10 * dir;
+  servo.write(angle);
+  
+}
+
+void resetServo(){
+  if (isTurning){
+  servo.write(90);
+  isTurning = false;
+  }
+}
+```
+
+### 9️⃣ **Basic Example: Use case of kariSerialBlueTooth**
+```cpp
+#include <kari.h>
+#include <kariBT.h>
+#include <BluetoothSerial.h>
+using namespace kari;
+BluetoothSerial SerialBT;
+
+enum class Data{
+    KARI,
+    OTHER
+};
+
+Data mapToEnum(String &mappedItem);
+void dataCallback(String &data);
+void connectCallback();
+
+kariSerialBluetooth<BluetoothSerial> bt(SerialBT, "kari esp");
+
+void setup(){
+    Serial.begin(9600);
+    out<<"Initializing bluetooth with kariBT" << endl << 45 << endl;
+    bt.begin();
+}
+
+void loop(){
+
+bt.isConnected(
+    [](){ Serial.println("Connection callback");}
+);
+
+bt.listen(dataCallback);
+
+bt.isDisconnected(
+    [](){ Serial.println("Disconnected callback");}
+);
+
+
+}
+
+
+void dataCallback(String &data){
+    if (!data.isEmpty()){
+        
+        switch(mapToEnum(data)){
+            case Data::KARI:
+                Serial.println("Dream, visualize, Idealize and Implement");
+                break;
+            default:
+                Serial.println(data);
+        }
+    }
+    else
+        Serial.println("...");
+
+}
+
+Data mapToEnum(String &mappedItem){
+    mappedItem.trim();
+    mappedItem.toLowerCase();
+
+    if (mappedItem == "kari")
+        return Data::KARI;
+    else 
+        return Data::OTHER;
+}
+```
+
 ## 📜 License
 This library is licensed under the Apache License 2.0.
 See the full license here: [Apache-2.0 License.](https://opensource.org/licenses/Apache-2.0)
@@ -250,4 +444,4 @@ Email: vincentmuriithi06@gmail.com
 
 ## 🌐 Website
 For more information about **Kari** and updates, visit:  
-[Kari Website](https://kariiot.netlify.app)
+[Kari Website](https://kari_IOT.netlify.app)

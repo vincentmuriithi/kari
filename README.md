@@ -63,7 +63,7 @@ To install the **Kari Library**:
 ### :signal_strength: kariSerialBlueTooth
 - `kariSerialBluetooth(T kariBT, String name = "kariBT");`
 - `void isConnected(void(*callback)());`
-- `void isDisconnected(void(*callback)());
+- `void isDisconnected(void(*callback)());`
 - `void begin();`
 
 ## 🔨 Usage

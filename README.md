@@ -8,12 +8,12 @@
 ## 📚 Table of Contents
 - [📌 Features](#-features)
 - [📥 Installation](#-installation)
-- [🛠 API Reference](#api-reference)
-- [🔨 Usage](#usage)
-- [🧩 Modular Extensions: kariCells](#modular-extensions-karicells)
-- [📜 License](#license)
-- [✨ Author](#author)
-- [🌐 Website](#website)
+- [🛠 API Reference](#-api-reference)
+- [🔨 Usage](#-usage)
+- [🧩 Modular Extensions: kariCells](#-modular-extensions-karicells)
+- [📜 License](#-license)
+- [✨ Author](#-author)
+- [🌐 Website](#-website)
 
 
 ## 📌 Features

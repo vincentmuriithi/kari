@@ -123,7 +123,7 @@ To install the **Kari Library**:
 - `static void onToggle8(void (*callback)(), bool offState = false);`
 - `static void onToggle9(void (*callback)(), bool offState = false);`
 
-### :bar_chart: kariGSheetClient
+### 📄 kariGSheetClient
 - `template <typename T, typename U>`
   `kariGSheetClient(T &gsheet, const char * client_email, const char * project_id, const char * private_key, const char * spreadsheet_id);`
 - `Self setHeadings(std::initializer_list<std::string> headings);`

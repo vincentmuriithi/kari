@@ -658,6 +658,7 @@ void register_customCommands(){
 #include <kariCells.h>
 #include <ESP_Google_Sheet_Client.h>
 #include <WiFi.h>
+// Use #include <ESP8266WiFi.h> for esp8266 boards
 using namespace kari;
 
 const char* ssid = "your ssid";

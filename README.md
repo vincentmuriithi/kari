@@ -36,7 +36,8 @@ To install the **Kari Library**:
         ```bash
         pio pkg install --library  vincentmuriithi/kari
         ```
-    Or:
+     Or:
+     
         ```bash
         pio pkg install --library kari
         ```

@@ -39,6 +39,7 @@
 #else
 #include <vector>
 #endif
+#include "kariUtills.h"
 
 namespace kari{
 
@@ -275,7 +276,61 @@ class kariDrive{
 
 };
 
+class kariHCBluetooth{
+private:
+    using Self = kariHCBluetooth&;
+    using Callback = void(*)();
+    using listenCallback = void(*)(String&);
+    bool _connected;
+    int baudrate;
+    const int rx,tx, state, enable;
+public:
+    kariHCBluetooth(int tx, int rx, int state = -1, int enable = -1);
+    Self initialize(bool commandMode = false);
+    Self listen(listenCallback);
+    template <typename T = String>
+    Self send(T);
+    Self isConnected(Callback);
+    Self isDisconnected(Callback);
+};
+
+class kariPH{
+private:
+    using Self = kariPH&;
+    using Callback = void(*)(float &data);
+    float phData = 0.0f;
+    int iterationCount;
+    const int signal;
+    bool _isRaw = false;
+public:
+    kariPH(int signal, int = 10);
+    kariPH(kariPH&) = delete;
+    kariPH(const kariPH&) = delete;
+    kariPH(kariPH&&) = delete;
+    kariPH(const kariPH&&) = delete;
+    Self getRaw(bool = true);
+    Self measure();
+    Self onMeasure(Callback);
+};
+
+class kariJoyStick{
+private:
+    using Self = const kariJoyStick&;
+    using Callback = void(*)(float &position);
+    const int vrx, vry, sw, sensitivity, threshold;
+public:
+    kariJoyStick(int, int, int, int = 10, int = 512) noexcept;
+    kariJoyStick(kariJoyStick&) = delete;
+    kariJoyStick(const kariJoyStick&) = delete;
+    kariJoyStick(kariJoyStick&&) = delete;
+    kariJoyStick(const kariJoyStick&&) = delete;
+    Self onX(Callback, bool = false) const;
+    Self onY(Callback, bool = false) const;
+};
+
+
 #include "kariNamespace.tpp"
+#include "kariInterfaces.tpp"
 
 #endif 
 

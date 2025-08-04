@@ -27,34 +27,44 @@ template <typename T>
 kariSerialBluetooth<T>::kariSerialBluetooth(T kariBT, String name): name(name), kariBT(kariBT) {}
 
 template <typename T>
-void kariSerialBluetooth<T>::begin(){
+kariSerialBluetooth<T>& kariSerialBluetooth<T>::initialize(){
   this->kariBT.begin(this->name, false);
+  return *this;
 }
 
 template <typename T>
-String kariSerialBluetooth<T>::listen(void(*callback)(String &data)){
+kariSerialBluetooth<T>& kariSerialBluetooth<T>::listen(Callback callback){
 
     if (this->kariBT.available()){
-
       this->data = this->kariBT.readString();
+      data.trim();
       callback(this->data);
-      return this->data;
     }
-    return "";
+    return *this;
   }
 
 template <typename T>
-void kariSerialBluetooth<T>::isConnected(void(*callback)()){
+kariSerialBluetooth<T>& kariSerialBluetooth<T>::isConnected(void(*callback)()){
   if (this->kariBT.hasClient() && this->status == false){
     this->status = true;
     callback();
   }
+  return *this;
 }
 
 template <typename T>
-void kariSerialBluetooth<T>::isDisconnected(void(*callback)()){
+kariSerialBluetooth<T>& kariSerialBluetooth<T>::isDisconnected(void(*callback)()){
   if (!this->kariBT.hasClient() && this->status == true){
     this->status = false;
     callback();
   }
+  return *this;
+}
+
+template <typename T>
+kariSerialBluetooth<T>& kariSerialBluetooth<T>::send(String data){
+  if (data.isEmpty()) return *this;
+  data.trim();
+  this->kariBT.println(data);
+  return *this;
 }

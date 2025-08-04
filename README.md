@@ -1,8 +1,20 @@
 # Kari Library
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/vincentmuriithi/library/Kari.svg)](https://registry.platformio.org/libraries/vincentmuriithi/Kari)
 
 **Kari** is a lightweight and efficient Arduino library designed for asynchronous execution, sensor-based applications, and efficient pin control. It simplifies the integration of various sensors (like ultrasonic, PIR, and infrared) and supports asynchronous task management to improve performance.
+
+## 📚 Table of Contents
+- [📌 Features](#features)
+- [📥 Installation](#installation)
+- [🛠 API Reference](#api-reference)
+- [🔨 Usage](#usage)
+- [🧩 Modular Extensions: kariCells](#modular-extensions-karicells)
+- [📜 License](#license)
+- [✨ Author](#author)
+- [🌐 Website](#website)
+
 
 ## 📌 Features
 - ⚡ **Asynchronous Execution** – Non-blocking tasks in the `loop()` function.
@@ -13,11 +25,37 @@
 ## 📥 Installation
 To install the **Kari Library**:
 
-1. **Download from GitHub**
+1. **Download from Arduino Library Manager**
+    - Open the Arduino IDE.
+    - Go to Sketch > Include Library > Manage Libraries.
+    - In the Library Manager, search for **`Kari`**.
+    - Click **`Install`**
+
+2. **Download from PlatformIO**
+    - Using CLI command:
+        ```bash
+        pio lib install vincentmuriithi/kari
+        ```
+     Or:
+        ```bash
+        pio lib install kari
+        ```
+    - Alternatively add the library to your project like this:
+        ```ini
+        lib_deps =
+            vincentmuriithi/Kari
+        ```
+    - For specific library version e.g v1.2.0 you specify as follows:
+        ```ini
+        lib_deps =
+            vincentmuriithi/Kari@^1.2.0
+        ```
+
+3. **Download from GitHub**
    - Go to the [Kari GitHub Repository](https://github.com/vincentmuriithi/kari) or [Kari Website](https://kariIOT.netlify.app).
    - Download the `.zip` file of the latest release.
 
-2. **Manual Installation**
+4. **Manual Installation**
    1. Extract the `.zip` file.
    2. Copy the **`Kari`** folder to your Arduino **`libraries`** folder.
       - On Windows, it's usually located at:  
@@ -64,7 +102,73 @@ To install the **Kari Library**:
 - `kariSerialBluetooth(T kariBT, String name = "kariBT");`
 - `void isConnected(void(*callback)());`
 - `void isDisconnected(void(*callback)());`
-- `void begin();`
+- `void initialize();`
+
+### :mobile_phone_with_arrow: kariMonClient
+- `static void parse(String &);`
+- `static void onCommand(Callback, const char*);`
+- `static void onTiltControls(Callback, Controls);`
+- `static void onJoyStickControls(Callback, Controls);`
+- `static void onBlue(void (*callback)(), bool offState = false);`
+- `static void onRed(void (*callback)(), bool offState = false);`
+- `static void onGreen(void (*callback)(), bool offState = false);`
+- `static void onToggle0(void (*callback)(), bool offState = false);`
+- `static void onToggle1(void (*callback)(), bool offState = false);`
+- `static void onToggle2(void (*callback)(), bool offState = false);`
+- `static void onToggle3(void (*callback)(), bool offState = false);`
+- `static void onToggle4(void (*callback)(), bool offState = false);`
+- `static void onToggle5(void (*callback)(), bool offState = false);`
+- `static void onToggle6(void (*callback)(), bool offState = false);`
+- `static void onToggle7(void (*callback)(), bool offState = false);`
+- `static void onToggle8(void (*callback)(), bool offState = false);`
+- `static void onToggle9(void (*callback)(), bool offState = false);`
+
+### :bar_chart: kariGSheetClient
+- `template <typename T, typename U>`
+  `kariGSheetClient(T &gsheet, const char * client_email, const char * project_id, const char * private_key, const char * spreadsheet_id);`
+- `Self setHeadings(std::initializer_list<std::string> headings);`
+- `Self initialize(int = 10,const char* = "ROWS");`
+- `template <typename dataType = String>`
+  `Self attach(dataType);`
+- `Self transmit();`
+- `Self onSuccess(Callback);`
+- `Self onError(Callback);`
+*Here `Self` is used to mean `kariGSheetClient&` which is a reference to object which allows for method chaining.*
+
+### :joystick: kariJoyStick
+- `kariJoyStick(int vrx, int vry, int sw, int sensitivity = 10, int threshold = 512);`
+- `kariJoyStick(kariJoyStick&) = delete;`
+- `kariJoyStick(const kariJoyStick&) = delete;`
+- `kariJoyStick(kariJoyStick&&) = delete;`
+- `kariJoyStick(const kariJoyStick&&) = delete;`
+- `Self onX(Callback, bool = false) const;`
+- `Self onY(Callback, bool = false) const;`
+*Here `Self` is used to mean `kariJoyStick&` which is a reference to object which allows for method chaining.*
+
+### :thermometer: kariTempSensor
+- `template <typename T, typename U>`
+  `kariTempSensor(int signal);`
+- `Self measure();`
+- `Self onMeasureC(void(*)(float data));`
+- `Self onMeasureF(void(*)(float data));`
+*Here `Self` is used to mean `kariTempSensor&` which is a reference to object which allows for method chaining.*
+
+### :satellite: kariHCBluetooth
+- `kariHCBluetooth(int tx, int rx, int state = -1, int enable = -1);`
+- `Self initialize(bool commandMode = false);`
+- `Self listen(listenCallback);`
+- `template <typename T = String>`
+- `Self send(T);`
+- `Self isConnected(Callback);`
+- `Self isDisconnected(Callback);`
+*Here `Self` is used to mean `kariHCBluetooth&` which is a reference to object which allows for method chaining.*
+
+### 🌊🧪 kariPH
+- `kariPH(int signal, int iterationCount= 10);`
+- `Self getRaw(bool = true);`
+- `Self measure();`
+- `Self onMeasure(Callback);`
+*Here `Self` is used to mean `kariPH&` which is a reference to object which allows for method chaining.*
 
 ## 🔨 Usage
 
@@ -432,6 +536,294 @@ Data mapToEnum(String &mappedItem){
         return Data::OTHER;
 }
 ```
+
+### 🔟 **Basic Example: Use case of kariMonClient**
+```cpp
+#include <kari.h>
+#include <kariBT.h>
+#include <kariMonClient.h>
+#include <BluetoothSerial.h>
+using namespace kari;
+
+void register_colorCommands();
+void register_toggleCommands();
+void register_kariMonClient();
+void register_customCommands();
+
+BluetoothSerial serialBT;
+
+kariSerialBluetooth<BluetoothSerial> bt(serialBT, "kari_esp");
+
+void setup(){
+Serial.begin(9600);
+register_kariMonClient();
+bt.initialize();
+out << "Connecting to Bluetooth..." << endl; 
+}
+
+
+void loop(){
+    bt
+    .isConnected([](){
+        out << "Connected to kariMon IoT App" << endl;
+    })
+    .listen([](String &data){
+        out << data << endl;
+        kariMonClient::parse(data);
+    })
+    .isDisconnected([](){
+        out << "Bluetooth disconnected!" << endl;
+    });
+
+    kariAsync::execute([](){
+        bt.send("Hello from kariMonClient");
+    },1000);
+
+}
+
+
+void register_kariMonClient(){
+    register_colorCommands();
+    register_toggleCommands();
+    register_customCommands();
+
+    kariMonClient::onJoyStickControls([](){
+        out << "REVERSE command received" << endl;
+    }, Controls::REVERSE);
+
+    kariMonClient::onJoyStickControls([](){
+        out << "FORWARD command received" << endl;
+    }, Controls::FORWARD);
+}
+
+
+void register_colorCommands(){
+    kariMonClient::onBlue([](){
+        out << "Blue on signal received" << endl;
+    });
+    kariMonClient::onBlue([](){
+        out << "Blue off signal received" << endl;
+    }, true);
+    kariMonClient::onRed([](){
+        out << "Red on signal received" << endl;
+    });
+    kariMonClient::onRed([](){
+        out << "Red off signal received" << endl;
+    }, true);
+    kariMonClient::onGreen([](){
+        out << "Green on signal received" << endl;
+    });
+    kariMonClient::onGreen([](){
+out << "Green off signal received" << endl;
+    }, true);
+}
+void register_toggleCommands(){
+    kariMonClient::onToggle0([](){
+        out << "Toggle0 on signal received" << endl;
+    });
+    kariMonClient::onToggle0([](){
+        out << "Toggle0 off signal received" << endl;
+    }, true);
+    kariMonClient::onToggle1([](){
+        out << "Toggle1 on signal received" << endl;
+    });
+    kariMonClient::onToggle1([](){
+        out << "Toggle1 off signal received" << endl;
+    }, true);
+    kariMonClient::onToggle2([](){
+        out << "Toggle2 on signal received" << endl;
+    });
+    kariMonClient::onToggle2([](){
+        out << "Toggle2 off signal received" << endl;
+    }, true);
+    kariMonClient::onToggle3([](){
+        out << "Toggle3 on signal received" << endl;
+    });
+    kariMonClient::onToggle3([](){
+        out << "Toggle3 off signal received" << endl;
+    }, true);
+}
+
+
+void register_customCommands(){
+    kariMonClient::onCommand([](){
+        out << "hello there, how may i help you?" << endl;
+    }, "hello");
+}
+```
+
+### #️⃣ **Basic Example: Use case of kariGSheetClient**
+```cpp
+#include <kari.h>
+#include <kariCells.h>
+#include <ESP_Google_Sheet_Client.h>
+#include <WiFi.h>
+using namespace kari;
+
+const char* ssid = "your ssid";
+const char* password = "your password";
+const char* client_email = "your client email";
+const char* project_id = "your project_id";
+const char* spreadsheet_id = "your spreadsheet id";
+const char* private_key = "your private_key";
+
+kariGSheetClient<ESP_Google_Sheet_Client, FirebaseJson> google(GSheet, client_email, project_id, private_key, spreadsheet_id);
+int itemCount{1};
+
+void setup(){
+Serial.begin(9600);
+WiFi.setAutoConnect(true);
+WiFi.begin(ssid, password);
+
+while(WiFi.status() != WL_CONNECTED){
+    kariAsync::execute([](){
+        out << ". ";
+    }, 400);
+}
+
+out << "Connected to: " << WiFi.localIP() << endl;
+if (!google) out << "kariGSheet instance is not ready" << endl;
+google.initialize();
+if (google) out << "kariGSheet instance is ready" << endl;
+google.setHeadings({"Country", "Profession", "Name", "Count", "Library"});
+}
+
+
+void loop(){
+    kariAsync::execute([](){
+        google.attach("Kenya")
+        .attach("Engineering")
+        .attach("Vincent")
+        .attach<int>(itemCount)
+        .attach("Kari")
+        .transmit()
+        .onSuccess([](String response){
+            out << "Success" << response << endl;
+            itemCount++;
+        })
+        .onError([](String error){
+            out << error << endl;
+        });
+    }, 1000);
+}
+```
+
+### #️⃣ **Basic Example: Use case of kariJoyStick**
+```cpp
+#include <kari.h>
+using namespace kari;
+
+kariJoyStick joystick(A0, A1, 8, 500);
+void setup(){
+Serial.begin(9600);
+out << "JoyStick Example" << endl;
+}
+
+void loop(){
+joystick
+
+.onX([](float &_x){
+    out << _x << endl;
+})
+
+.onY([](float &_y){
+    out << _y << endl;
+});
+}
+```
+
+### #️⃣ **Basic Example: Use case of kariTempSensor**
+```cpp
+#include <kari.h>
+#include <kariCells.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+using namespace kari;
+
+// must use a pointer since kariTempConstructor calls methods which needs to be in setup
+kariTempSensor<OneWire, DallasTemperature> *temp;
+
+void setup(){
+Serial.begin(9600);
+temp = new kariTempSensor<OneWire, DallasTemperature>(8);
+}
+
+void loop(){
+    kariAsync::execute([](){
+        temp
+    ->measure()
+    .onMeasureC([](float data){
+        out << "Temperature in degrees celcius: " << data << endl;
+    })
+    .onMeasureF([](float data){
+        out << "Temperature in Farenheits: " << data << endl;
+    });
+    }, 2000);
+}
+```
+### #️⃣ **Basic Example: Use case of kariHCBluetooth**
+```cpp
+#include <kari.h>
+#include <kariMonClient.h>
+using namespace kari;
+
+kariHCBluetooth hc(0, 1);
+
+void setup(){
+Serial.begin(9600);
+hc.initialize();
+}
+
+
+void loop(){
+    hc.listen([](String &data){
+        out << data << endl;
+    });
+
+    kariAsync::execute([](){
+        hc.send("Hello to the world");
+    }, 1500);
+
+}
+```
+
+### #️⃣ **Basic Example: Use case of kariTempSensor**
+```cpp
+#include <kari.h>
+using namespace kari;
+
+kariPH ph(A0);
+
+void setup(){
+Serial.begin(9600);
+out << "kariPH example sketch" << endl;
+}
+
+
+void loop(){
+    kariAsync::execute([](){
+        ph
+        .measure()
+        .onMeasure([](float &phData){
+            out << phData << endl;
+    });
+
+    }, 1500);
+}
+```
+
+## 🧩 Modular Extensions: `kariCells`
+A **`kariCell`** is a modular component in the **Kari** library ecosystem that wraps other Arduino libraries to provide enhanced functionality. `kariCells` allow you to easily extend Kari’s capabilities while keeping the core lightweight.
+- `kariCells` are **not automatically included** when importing the main `kari.h` header.
+- Some `kariCells` have their own header files, while others are included through a shared `kariCells.h` file.
+- They depend on the **core `kari` library** to function correctly.
+- First introduced in **Kari v1.1.0**, `kariCells` are ideal for plug-and-play integration with existing ecosystems like Bluetooth, temperature sensors, and more.
+
+### ✅ Example `kariCells`
+
+- `kariSerialBluetooth` – wraps `BluetoothSerial`
+- `kariTempSensor` – wraps `OneWire` and `DallasTemperature`
+- `kariGSheetClient` – wraps `ESP_Google_Sheet_Client`
 
 ## 📜 License
 This library is licensed under the Apache License 2.0.

@@ -20,37 +20,21 @@
  * License: Apache License 2.0
  */
 
-#ifndef KARIBT_H
-#define KARIBT_H
+#ifndef KARI_CELLS
+#define KARI_CELLS
 
-#include <Arduino.h>
+namespace kari{
+    template <typename T, typename U>
+    struct is_same{
+        static constexpr bool value = false;
+    };
 
-#if !defined(__AVR__)
-#if defined(__KARI_SERIAL_BT__)
+    template <typename T>
+    struct is_same<T,T>{
+        static constexpr bool value = true;
+    };
+}
 
-template <typename  T>
-class kariSerialBluetooth{
-    using Self = kariSerialBluetooth&;
-    using Callback = void(*)(String&);
-    using connectionCallback = void(*)();
-    T kariBT;
-    String name;
-    String data;
-    bool status;
-    public:
 
-    kariSerialBluetooth(T kariBT, String name = "kariBT");
-    Self isConnected(connectionCallback);
-    Self isDisconnected(connectionCallback);
-    Self initialize();
-    Self send(String data);
-    Self listen(void(*callback)(String &data));
-    
-};
 
-#include "kari_espbluetooth.tpp"
-
-#endif
-#endif
-
-#endif
+#endif /*  */

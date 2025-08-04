@@ -20,37 +20,30 @@
  * License: Apache License 2.0
  */
 
-#ifndef KARIBT_H
-#define KARIBT_H
 
-#include <Arduino.h>
+#include <kari.h>
+#include <kariCells.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+using namespace kari;
 
-#if !defined(__AVR__)
-#if defined(__KARI_SERIAL_BT__)
+// must use a pointer since kariTempConstructor calls methods which needs to be in setup
+kariTempSensor<OneWire, DallasTemperature> *temp;
 
-template <typename  T>
-class kariSerialBluetooth{
-    using Self = kariSerialBluetooth&;
-    using Callback = void(*)(String&);
-    using connectionCallback = void(*)();
-    T kariBT;
-    String name;
-    String data;
-    bool status;
-    public:
+void setup(){
+Serial.begin(9600);
+temp = new kariTempSensor<OneWire, DallasTemperature>(8);
+}
 
-    kariSerialBluetooth(T kariBT, String name = "kariBT");
-    Self isConnected(connectionCallback);
-    Self isDisconnected(connectionCallback);
-    Self initialize();
-    Self send(String data);
-    Self listen(void(*callback)(String &data));
-    
-};
-
-#include "kari_espbluetooth.tpp"
-
-#endif
-#endif
-
-#endif
+void loop(){
+    kariAsync::execute([](){
+        temp
+    ->measure()
+    .onMeasureC([](float data){
+        out << "Temperature in degrees celcius: " << data << endl;
+    })
+    .onMeasureF([](float data){
+        out << "Temperature in Farenheits: " << data << endl;
+    });
+    }, 2000);
+}

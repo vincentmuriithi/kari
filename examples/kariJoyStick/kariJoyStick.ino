@@ -20,37 +20,24 @@
  * License: Apache License 2.0
  */
 
-#ifndef KARIBT_H
-#define KARIBT_H
 
-#include <Arduino.h>
+#include <kari.h>
+using namespace kari;
 
-#if !defined(__AVR__)
-#if defined(__KARI_SERIAL_BT__)
+kariJoyStick joystick(A0, A1, 8, 500);
+void setup(){
+Serial.begin(9600);
+out << "JoyStick Example" << endl;
+}
 
-template <typename  T>
-class kariSerialBluetooth{
-    using Self = kariSerialBluetooth&;
-    using Callback = void(*)(String&);
-    using connectionCallback = void(*)();
-    T kariBT;
-    String name;
-    String data;
-    bool status;
-    public:
+void loop(){
+joystick
 
-    kariSerialBluetooth(T kariBT, String name = "kariBT");
-    Self isConnected(connectionCallback);
-    Self isDisconnected(connectionCallback);
-    Self initialize();
-    Self send(String data);
-    Self listen(void(*callback)(String &data));
-    
-};
+.onX([](float &_x){
+    out << _x << endl;
+})
 
-#include "kari_espbluetooth.tpp"
-
-#endif
-#endif
-
-#endif
+.onY([](float &_y){
+    out << _y << endl;
+});
+}

@@ -20,37 +20,27 @@
  * License: Apache License 2.0
  */
 
-#ifndef KARIBT_H
-#define KARIBT_H
 
-#include <Arduino.h>
+#include <kari.h>
+using namespace kari;
 
-#if !defined(__AVR__)
-#if defined(__KARI_SERIAL_BT__)
+kariHCBluetooth hc(0, 1);
 
-template <typename  T>
-class kariSerialBluetooth{
-    using Self = kariSerialBluetooth&;
-    using Callback = void(*)(String&);
-    using connectionCallback = void(*)();
-    T kariBT;
-    String name;
-    String data;
-    bool status;
-    public:
 
-    kariSerialBluetooth(T kariBT, String name = "kariBT");
-    Self isConnected(connectionCallback);
-    Self isDisconnected(connectionCallback);
-    Self initialize();
-    Self send(String data);
-    Self listen(void(*callback)(String &data));
-    
-};
+void setup(){
+Serial.begin(9600);
+hc.initialize();
+}
 
-#include "kari_espbluetooth.tpp"
 
-#endif
-#endif
+void loop(){
+    hc.listen([](String &data){
+        out << data << endl;
+    });
 
-#endif
+    kariAsync::execute([](){
+        hc.send("Hello to the world");
+    }, 1500);
+
+}
+

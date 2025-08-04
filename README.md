@@ -34,11 +34,11 @@ To install the **Kari Library**:
 2. **Download from PlatformIO**
     - Using CLI command:
         ```bash
-        pio lib install vincentmuriithi/kari
+        pio pkg install --library  vincentmuriithi/kari
         ```
      Or:
         ```bash
-        pio lib install kari
+        pio pkg install --library kari
         ```
     - Alternatively add the library to your project like this:
         ```ini

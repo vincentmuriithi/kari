@@ -37,11 +37,9 @@ To install the **Kari Library**:
         pio pkg install --library  vincentmuriithi/kari
         ```
      Or:
-     
-        ```bash
-        pio pkg install --library kari
-        ```
-
+      ```bash
+      pio pkg install --library kari
+      ```
     - Alternatively add the library to your project like this:
         ```ini
         lib_deps =

@@ -50,6 +50,35 @@ To install the **Kari Library**:
         lib_deps =
             vincentmuriithi/Kari@^1.2.0
         ```
+    - In platformIO you need to configure `kari` to use its static libraries accordingly as follows:
+        ```ini
+        build_flags =
+            -I.pio/libdeps/YOUR_ENV/kari/src
+            -L.pio/libdeps/YOUR_ENV/kari/src/YOUR_PLATFORM
+            -lkari_YOUR_PLATFORM.a
+     Replace:
+     YOUR_ENV with your environment (e.g., esp32dev, web, uno)
+     YOUR_PLATFORM with the architecture which are such as (esp32, esp8266, atmega328p, atmega2560, etc.)
+     Example for ESP8266:
+        ```ini
+        build_flags =
+        -ID:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src
+        -LD:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src\esp8266
+        -lkari_esp8266.a
+        ```
+     ⚠️ Note that for the following  ESP32-family boards (ESP32, ESP32-S2, ESP32-S3):
+     All use the same static library file -lkari_esp32.a.
+     The -I path always remains:
+        ```ini
+        -I.pio/libdeps/YOUR_ENV/kari/src
+        ```
+     Only the -L path changes to match the board variant subfolder:
+        ```ini
+        -L.pio/libdeps/YOUR_ENV/kari/src/esp32     ; for ESP32
+        -L.pio/libdeps/YOUR_ENV/kari/src/esp32s2   ; for ESP32-S2
+        -L.pio/libdeps/YOUR_ENV/kari/src/esp32s3   ; for ESP32-S3
+        ```
+     
 
 3. **Download from GitHub**
    - Go to the [Kari GitHub Repository](https://github.com/vincentmuriithi/kari) or [Kari Website](https://kariIOT.netlify.app).

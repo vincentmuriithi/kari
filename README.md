@@ -72,7 +72,7 @@ To install the **Kari Library**:
 
     ⚠️ Note that for the following  ESP32-family boards (ESP32, ESP32-S2, ESP32-S3):
     All use the same static library file `-lkari_esp32.a`.
-    The -I path always remains:
+    The **-I** path always remains:
      ```ini
         -I.pio/libdeps/YOUR_ENV/kari/src
      ```

@@ -144,6 +144,7 @@ To install the **Kari Library**:
 - `kariJoyStick(const kariJoyStick&&) = delete;`
 - `Self onX(Callback, bool = false) const;`
 - `Self onY(Callback, bool = false) const;`
+
 *Here `Self` is used to mean `kariJoyStick&` which is a reference to object which allows for method chaining.*
 
 ### :thermometer: kariTempSensor
@@ -152,6 +153,7 @@ To install the **Kari Library**:
 - `Self measure();`
 - `Self onMeasureC(void(*)(float data));`
 - `Self onMeasureF(void(*)(float data));`
+
 *Here `Self` is used to mean `kariTempSensor&` which is a reference to object which allows for method chaining.*
 
 ### 🅱️ kariHCBluetooth
@@ -162,6 +164,7 @@ To install the **Kari Library**:
 - `Self send(T);`
 - `Self isConnected(Callback);`
 - `Self isDisconnected(Callback);`
+
 *Here `Self` is used to mean `kariHCBluetooth&` which is a reference to object which allows for method chaining.*
 
 ### 🌊🧪 kariPH
@@ -169,6 +172,7 @@ To install the **Kari Library**:
 - `Self getRaw(bool = true);`
 - `Self measure();`
 - `Self onMeasure(Callback);`
+
 *Here `Self` is used to mean `kariPH&` which is a reference to object which allows for method chaining.*
 
 ## 🔨 Usage

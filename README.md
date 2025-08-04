@@ -56,7 +56,8 @@ To install the **Kari Library**:
             -I.pio/libdeps/YOUR_ENV/kari/src
             -L.pio/libdeps/YOUR_ENV/kari/src/YOUR_PLATFORM
             -lkari_YOUR_PLATFORM.a
-            
+        ```
+        
      Replace:
      YOUR_ENV with your environment (e.g., esp32dev, web, uno)
      YOUR_PLATFORM with the architecture which are such as (esp32, esp8266, atmega328p, atmega2560, etc.)

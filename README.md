@@ -133,6 +133,7 @@ To install the **Kari Library**:
 - `Self transmit();`
 - `Self onSuccess(Callback);`
 - `Self onError(Callback);`
+
 *Here `Self` is used to mean `kariGSheetClient&` which is a reference to object which allows for method chaining.*
 
 ### :joystick: kariJoyStick

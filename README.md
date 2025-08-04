@@ -874,7 +874,7 @@ See the full license here: [Apache-2.0 License.](https://opensource.org/licenses
 ## ✨ Author
 **Vincent Muriithi Karimi**  
 GitHub: [vincentmuriithi](https://github.com/vincentmuriithi)  
-Email: vincentmuriithi06@gmail.com 
+Email: kari.clientdesk@gmail.com 
 
 ## 🌐 Website
 For more information about **Kari** and updates, visit:  

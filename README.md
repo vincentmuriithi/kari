@@ -6,8 +6,8 @@
 **Kari** is a lightweight and efficient Arduino library designed for asynchronous execution, sensor-based applications, and efficient pin control. It simplifies the integration of various sensors (like ultrasonic, PIR, and infrared) and supports asynchronous task management to improve performance.
 
 ## 📚 Table of Contents
-- [📌 Features](#📌-features)
-- [📥 Installation](#installation)
+- [📌 Features](#-features)
+- [📥 Installation](#-installation)
 - [🛠 API Reference](#api-reference)
 - [🔨 Usage](#usage)
 - [🧩 Modular Extensions: kariCells](#modular-extensions-karicells)

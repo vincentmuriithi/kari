@@ -63,12 +63,12 @@ To install the **Kari Library**:
      - YOUR_PLATFORM with the architecture which are such as (esp32, esp8266, atmega328p, atmega2560, etc.)
      
     ### Example for ESP8266:
-        ```ini
-        build_flags =
-            -ID:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src
-            -LD:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src\esp8266
-            -lkari_esp8266.a
-        ```
+     ```ini
+     build_flags =
+        -ID:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src
+        -LD:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src\esp8266
+        -lkari_esp8266.a
+     ```
 
     ⚠️ Note that for the following  ESP32-family boards (ESP32, ESP32-S2, ESP32-S3):
     All use the same static library file -lkari_esp32.a.

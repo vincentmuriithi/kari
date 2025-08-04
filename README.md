@@ -104,7 +104,7 @@ To install the **Kari Library**:
 - `void isDisconnected(void(*callback)());`
 - `void initialize();`
 
-### :mobile_phone_with_arrow: kariMonClient
+### 📲 kariMonClient
 - `static void parse(String &);`
 - `static void onCommand(Callback, const char*);`
 - `static void onTiltControls(Callback, Controls);`
@@ -153,7 +153,7 @@ To install the **Kari Library**:
 - `Self onMeasureF(void(*)(float data));`
 *Here `Self` is used to mean `kariTempSensor&` which is a reference to object which allows for method chaining.*
 
-### :satellite: kariHCBluetooth
+### 🅱️ kariHCBluetooth
 - `kariHCBluetooth(int tx, int rx, int state = -1, int enable = -1);`
 - `Self initialize(bool commandMode = false);`
 - `Self listen(listenCallback);`

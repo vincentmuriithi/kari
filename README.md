@@ -65,9 +65,9 @@ To install the **Kari Library**:
     ### Example for ESP8266:
         ```ini
         build_flags =
-        -ID:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src
-        -LD:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src\esp8266
-        -lkari_esp8266.a
+            -ID:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src
+            -LD:\Documents2\Arduino2\webServer\.pio\libdeps\web\kari\src\esp8266
+            -lkari_esp8266.a
         ```
 
     ⚠️ Note that for the following  ESP32-family boards (ESP32, ESP32-S2, ESP32-S3):
@@ -78,9 +78,9 @@ To install the **Kari Library**:
         ```
     Only the -L path changes to match the board variant subfolder:
         ```ini
-        -L.pio/libdeps/YOUR_ENV/kari/src/esp32     ; for ESP32
-        -L.pio/libdeps/YOUR_ENV/kari/src/esp32s2   ; for ESP32-S2
-        -L.pio/libdeps/YOUR_ENV/kari/src/esp32s3   ; for ESP32-S3
+            -L.pio/libdeps/YOUR_ENV/kari/src/esp32     ; for ESP32
+            -L.pio/libdeps/YOUR_ENV/kari/src/esp32s2   ; for ESP32-S2
+            -L.pio/libdeps/YOUR_ENV/kari/src/esp32s3   ; for ESP32-S3
         ```
      
 

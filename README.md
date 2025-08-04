@@ -100,9 +100,11 @@ To install the **Kari Library**:
 
 ### :signal_strength: kariSerialBlueTooth
 - `kariSerialBluetooth(T kariBT, String name = "kariBT");`
-- `void isConnected(void(*callback)());`
-- `void isDisconnected(void(*callback)());`
-- `void initialize();`
+- `Self isConnected(void(*callback)());`
+- `Self isDisconnected(void(*callback)());`
+- `Self initialize();`
+
+ *Here `Self` is used to mean `kariSerialBlueTooth&` which is a reference to object which allows for method chaining.*
 
 ### 📲 kariMonClient
 - `static void parse(String &);`
@@ -134,7 +136,7 @@ To install the **Kari Library**:
 - `Self onSuccess(Callback);`
 - `Self onError(Callback);`
 
-*Here `Self` is used to mean `kariGSheetClient&` which is a reference to object which allows for method chaining.*
+ *Here `Self` is used to mean `kariGSheetClient&` which is a reference to object which allows for method chaining.*
 
 ### :joystick: kariJoyStick
 - `kariJoyStick(int vrx, int vry, int sw, int sensitivity = 10, int threshold = 512);`
@@ -145,7 +147,7 @@ To install the **Kari Library**:
 - `Self onX(Callback, bool = false) const;`
 - `Self onY(Callback, bool = false) const;`
 
-*Here `Self` is used to mean `kariJoyStick&` which is a reference to object which allows for method chaining.*
+ *Here `Self` is used to mean `kariJoyStick&` which is a reference to object which allows for method chaining.*
 
 ### :thermometer: kariTempSensor
 - `template <typename T, typename U>`
@@ -154,7 +156,7 @@ To install the **Kari Library**:
 - `Self onMeasureC(void(*)(float data));`
 - `Self onMeasureF(void(*)(float data));`
 
-*Here `Self` is used to mean `kariTempSensor&` which is a reference to object which allows for method chaining.*
+ *Here `Self` is used to mean `kariTempSensor&` which is a reference to object which allows for method chaining.*
 
 ### 🅱️ kariHCBluetooth
 - `kariHCBluetooth(int tx, int rx, int state = -1, int enable = -1);`
@@ -165,7 +167,7 @@ To install the **Kari Library**:
 - `Self isConnected(Callback);`
 - `Self isDisconnected(Callback);`
 
-*Here `Self` is used to mean `kariHCBluetooth&` which is a reference to object which allows for method chaining.*
+ *Here `Self` is used to mean `kariHCBluetooth&` which is a reference to object which allows for method chaining.*
 
 ### 🌊🧪 kariPH
 - `kariPH(int signal, int iterationCount= 10);`
@@ -173,7 +175,7 @@ To install the **Kari Library**:
 - `Self measure();`
 - `Self onMeasure(Callback);`
 
-*Here `Self` is used to mean `kariPH&` which is a reference to object which allows for method chaining.*
+ *Here `Self` is used to mean `kariPH&` which is a reference to object which allows for method chaining.*
 
 ## 🔨 Usage
 
@@ -496,7 +498,7 @@ kariSerialBluetooth<BluetoothSerial> bt(SerialBT, "kari esp");
 void setup(){
     Serial.begin(9600);
     out<<"Initializing bluetooth with kariBT" << endl << 45 << endl;
-    bt.begin();
+    bt.initialize();
 }
 
 void loop(){
